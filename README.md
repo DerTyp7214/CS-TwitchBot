@@ -1,0 +1,3 @@
+## Usage
+
+`dotnet run <channel>`
