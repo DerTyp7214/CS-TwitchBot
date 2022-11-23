@@ -135,4 +135,33 @@ public class TwitchBot
                 break;
         }
     }
+
+    public void Ping()
+    {
+        writer?.WriteLine("PING");
+    }
+
+    public void SendMessage(string message)
+    {
+        writer?.WriteLine($"PRIVMSG #{channel} :{message}");
+    }
+
+    public void SendRawMessage(string rawMessage)
+    {
+        writer?.WriteLine(rawMessage);
+    }
+
+    public void Reconnect()
+    {
+        twitchClient?.Close();
+
+        try
+        {
+            Connect();
+        }
+        catch (Exception)
+        {
+            Task.Delay(5000).ContinueWith((t) => Reconnect());
+        }
+    }
 }
